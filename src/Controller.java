@@ -416,10 +416,10 @@ public class Controller {
     }
 
     public void editStudent(Student currentStudent) {
-        view.printMessage("1. Edit first name 2. Edit last name 3. Edit email address 4. Back");
+        view.printMessage("1. Edit first name 2. Edit last name 3. Edit email address 4. Edit SSN 5. Back");
         int selection = pseudoScanner();
         switch (selection) {
-            case 0 -> view.printMessage("1. Edit first name 2. Edit last name 3. Edit email address 4. Back");
+            case 0 -> view.printMessage("1. Edit first name 2. Edit last name 3. Edit email address 4. Edit SSN 5. Back");
             case 1 -> {
                 String previousName = currentStudent.getFirstName();
                 view.printMessage("Enter a new first name.");
@@ -441,7 +441,13 @@ public class Controller {
                 view.printMessage(email + " changed their email to: " + currentStudent.getEmailAddress());
                 model.saveList();
             }
-            case 4 -> currentState = state.STUDENT_VIEW;
+            case 4 -> {
+                view.printMessage("Enter a new social security number.");
+                currentStudent.setSocialSecurityNumber(scanner.nextLine());
+                view.printMessage(currentStudent.getFirstName() + " " + currentStudent.getLastName() + "'s" +
+                        " social security number has been changed to: " + currentStudent.getSocialSecurityNumber());
+            }
+            case 5 -> currentState = state.STUDENT_VIEW;
         }
     }
 
@@ -537,10 +543,18 @@ public class Controller {
             currentState = state.STUDENTS;
             return;
         }
+        view.printMessage("Please enter the students social security number: ");
+        view.printMessage("Type 1 to exit. ");
+        String ssn = scannerString.nextLine().trim();
+        if (ssn.equalsIgnoreCase("1")) {
+            view.printMessage("Exiting...");
+            currentState = state.STUDENTS;
+            return;
+        }
         String email = fName + "." + lName + "@skola.se";
         int studentID = 10000 + (int) (Math.random() * 9000);
         view.printMessage("Student created.");
-        currentStudent = Student.createStudent(fName, lName, email, studentID);
+        currentStudent = Student.createStudent(fName, lName, email, ssn, studentID);
         model.addStudent(currentStudent);
         model.saveList();
         currentState = state.STUDENTS;
@@ -556,15 +570,24 @@ public class Controller {
             return;
         }
         view.printMessage("Please enter the teachers last name: ");
+        view.printMessage("Type 1 to exit. ");
         String lName = scannerString.nextLine().trim();
         if (lName.equalsIgnoreCase("1")) {
             view.printMessage("Exiting...");
             currentState = state.TEACHERS;
             return;
         }
+        view.printMessage("Please enter the teachers social security number: ");
+        view.printMessage("Type 1 to exit. ");
+        String ssn = scannerString.nextLine().trim();
+        if (ssn.equalsIgnoreCase("1")) {
+            view.printMessage("Exiting...");
+            currentState = state.TEACHERS;
+            return;
+        }
         String email = fName + "." + lName + "@skola.se";
         view.printMessage("Teacher added.");
-        currentTeacher = Teacher.createTeacher(fName, lName, email, false);
+        currentTeacher = Teacher.createTeacher(fName, lName, email, ssn, false);
         model.addTeacher(currentTeacher);
         model.saveList();
         currentState = state.TEACHER_VIEW;
@@ -708,7 +731,8 @@ public class Controller {
     }
 
     public void editTeacher(Teacher currentTeacher) {
-        view.printMessage("1. Edit first name 2. Edit last name 3. Edit email address 4. Edit password 5. Back");
+        view.printMessage("1. Edit first name 2. Edit last name 3. Edit email address 4. Edit password " +
+                "5. Edit SSN 6. Back");
         int selection = pseudoScanner();
         switch (selection) {
             case 1 -> {
@@ -761,7 +785,13 @@ public class Controller {
                     view.printMessage("Cant change the admins password.");
                 }
             }
-            case 5 -> currentState = state.SELECT_TEACHER;
+            case 5 -> {
+                view.printMessage("Enter a new social security number.");
+                currentTeacher.setSocialSecurityNumber(scanner.nextLine());
+                view.printMessage(currentTeacher.getFirstName() + " " + currentTeacher.getLastName() + "'s" +
+                        " social security number has been changed to: " + currentTeacher.getSocialSecurityNumber());
+            }
+            case 6 -> currentState = state.SELECT_TEACHER;
 
         }
     }

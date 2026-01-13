@@ -1,3 +1,5 @@
+import java.time.format.DateTimeFormatter;
+
 public class View {
 
 
@@ -7,6 +9,7 @@ public class View {
 
     private int index = 1;
     boolean firstIntro = true;
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     public void printAllStudents(Model model) {
         if (model.getStudentList() != null) {
@@ -33,8 +36,8 @@ public class View {
     public void printAllTeachers(Model model) {
         if (model.getTeacherList() != null) {
             for (Teacher t : model.getTeacherList()) {
-                System.out.println(index + ". " + t.getFirstName() + " " + t.getLastName());
-                index++;
+                    System.out.println(index + ". " + t.getFirstName() + " " + t.getLastName());
+                    index++;
             }
             System.out.println(index + ". Exit");
             index = 1;
@@ -78,13 +81,15 @@ public class View {
         System.out.println("Selected student: " + student.getFirstName() + " " + student.getLastName());
         System.out.println("Student ID: " + student.getStudentID());
         System.out.println("Student email: " + student.getEmailAddress());
-
+        System.out.println("Student SSN: " + student.getSocialSecurityNumber());
+        System.out.println("Date when added to system: " + student.getDateCreated().format(dtf));
     }
 
     public void printTeacherInfo(Teacher teacher) {
-        System.out.println("Selected Teacher: " + teacher.getFirstName() + " " + teacher.getLastName());
-        System.out.println("Teacher's email: " + teacher.getEmailAddress());
-
+            System.out.println("Selected Teacher: " + teacher.getFirstName() + " " + teacher.getLastName());
+            System.out.println("Teacher's email: " + teacher.getEmailAddress());
+            System.out.println("Teacher's SSN: " + teacher.getSocialSecurityNumber());
+            System.out.println("Date when added to system: " + teacher.getDateCreated().format(dtf));
     }
 
     public void printMessage(String messageText) {

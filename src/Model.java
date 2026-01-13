@@ -19,30 +19,29 @@ public class Model {
         return courses;
     }
 
-    public void addStudent(Student student_name){
+    public void addStudent(Student student_name) {
         studentList.add(student_name);
     }
 
-    public void addTeacher(Teacher teacher_name){
+    public void addTeacher(Teacher teacher_name) {
         teacherList.add(teacher_name);
     }
 
-    public void removeTeacher(Teacher teacher_name){
+    public void removeTeacher(Teacher teacher_name) {
         teacherList.remove(teacher_name);
     }
 
-    public void removeStudent(Student student_name){
+    public void removeStudent(Student student_name) {
         studentList.remove(student_name);
     }
 
-    public void sortStudentList(){
+    public void sortStudentList() {
         studentList.sort(Comparator.comparing(Student::getFirstName));
     }
 
-    public void sortTeacherList(){
+    public void sortTeacherList() {
         teacherList.sort(Comparator.comparing(Teacher::getFirstName));
     }
-
 
 
     public void saveList() {
@@ -50,7 +49,8 @@ public class Model {
         sortStudentList();
         sortTeacherList();
 
-        try { ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file));
+        try {
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file));
 
             out.writeObject(studentList);
             out.writeObject(teacherList);
@@ -65,7 +65,7 @@ public class Model {
 
     public void loadList() throws IOException {
 
-        if(!file.exists()) {
+        if (!file.exists()) {
             return;
         }
 
@@ -95,22 +95,20 @@ public class Model {
         }
     }
 
-    public Model(){
+    public Model() {
 
         courses.add(new Course("Math", 20, null));
         courses.add(new Course("Java", 20, null));
         courses.add(new Course("Biology", 20, null));
         courses.add(new Course("Design-patterns", 20, null));
-        teacherList.add(new Teacher("Admin", "Login", "Admin.login@skola.se", "Password", true));
 
-
+        teacherList.add(new Teacher("Admin", "Login", "Admin.login@skola.se",
+                "00001122-3456", "Password", true));
 
         try {
             loadList();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
 }
-
