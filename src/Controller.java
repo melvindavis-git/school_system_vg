@@ -36,7 +36,9 @@ public class Controller {
         GRADE_STUDENT,
         ASSIGNING_GRADE,
         REMOVE_STUDENT_FROM_COURSE,
-        ASSIGN_TEACHER_TO_COURSE
+        ASSIGN_TEACHER_TO_COURSE,
+        ///
+        INFO
     }
 
     private state currentState = state.LOGIN;
@@ -77,7 +79,8 @@ public class Controller {
                 case ASSIGN_COURSE_TO_TEACHER -> assignCourseToTeacher();
                 case REMOVE_TEACHER -> removeTeacher();
                 case ASSIGNING_GRADE -> assigningGrade();
-
+                ///
+                case INFO -> schoolInfo();
             }
         }
     }
@@ -99,16 +102,16 @@ public class Controller {
         view.printOnOneLine("Enter email address: ");
         String loginEmail = scanner.nextLine();
 
-        if(loginEmail.equalsIgnoreCase("createstudents")) {
+        if (loginEmail.equalsIgnoreCase("createstudents")) {
             model.studentList.clear();
             model.courses.get(1).getClassList().clear();
             Student.createManyStudents(model.studentList);
             view.printMessage("ADDED 20 STUDENTS");
-            for(Student s : model.studentList){
+            for (Student s : model.studentList) {
                 model.courses.get(1).addStudentToCourse(s);
             }
             model.saveList();
-            emailFound=true;
+            emailFound = true;
         }
         for (Teacher t : model.teacherList) {
             if (loginEmail.equalsIgnoreCase(t.getEmailAddress())) {
@@ -143,8 +146,12 @@ public class Controller {
         view.printIntro();
         while (true) {
             view.printMessage("Select one of the numbers below:");
-            view.printMessage("1. Students 2. Teachers 3. Courses 4. Logout");
+            if (!currentLogin.isAdmin()) {
+                view.printMessage("1. Students 2. Teachers 3. Courses 4. Logout");
+            } else {
+                view.printMessage("1. Students 2. Teachers 3. Courses 4. Logout 5. School info");
 
+            }
             int selection = pseudoScanner();
 
             switch (selection) {
@@ -164,6 +171,14 @@ public class Controller {
                     currentLogin = null;
                     currentState = state.LOGIN;
                     return;
+                }
+                case 5 -> {
+                    if (currentLogin.isAdmin()) {
+                        currentState = state.INFO;
+                        return;
+                    } else {
+                        view.printMessage("Not a valid option");
+                    }
                 }
                 default -> view.printMessage("Not a valid option");
             }
@@ -419,7 +434,8 @@ public class Controller {
         view.printMessage("1. Edit first name 2. Edit last name 3. Edit email address 4. Edit SSN 5. Back");
         int selection = pseudoScanner();
         switch (selection) {
-            case 0 -> view.printMessage("1. Edit first name 2. Edit last name 3. Edit email address 4. Edit SSN 5. Back");
+            case 0 ->
+                    view.printMessage("1. Edit first name 2. Edit last name 3. Edit email address 4. Edit SSN 5. Back");
             case 1 -> {
                 String previousName = currentStudent.getFirstName();
                 view.printMessage("Enter a new first name.");
@@ -518,9 +534,7 @@ public class Controller {
 
                 }
             }
-            case 4 ->
-                currentState = state.SEARCHING_STUDENT;
-
+            case 4 -> currentState = state.SEARCHING_STUDENT;
 
 
         }
@@ -661,7 +675,7 @@ public class Controller {
                 currentState = state.TEACHER_VIEW;
                 return;
 
-        } else {
+            } else {
                 view.printMessage("Not a valid number");
             }
         }
@@ -794,5 +808,12 @@ public class Controller {
             case 6 -> currentState = state.SELECT_TEACHER;
 
         }
+    }
+
+    public void schoolInfo() {
+        view.printSchoolInfo(model);
+        view.printMessage("\nPress Enter to return to main menu.");
+        scanner.nextLine();
+        currentState = state.MAIN_MENU;
     }
 }

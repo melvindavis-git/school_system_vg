@@ -159,5 +159,16 @@ public class View {
         } else {
             System.out.println("Student has no courses.\n");
         }
+
+    }
+
+    public void printSchoolInfo(Model model) {
+        System.out.println("SCHOOL NAME: " + model.school.getName());
+        System.out.println("YEAR FOUNDED: " + model.school.getYearFounded());
+        System.out.println("SCHOOL TYPE: " + model.school.getSchoolType());
+        System.out.println("COUNTRY: " + model.school.getCountry());
+        System.out.println("ADDRESS: " + model.school.getAddress());
+        System.out.println("PHONE NUMBER: " + model.school.getPhoneNumber());
+        System.out.println("ORG. NUMBER: " + model.school.getOrgNumber());
     }
 }

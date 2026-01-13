@@ -7,6 +7,7 @@ public class Model {
     ArrayList<Student> studentList = new ArrayList();
     ArrayList<Teacher> teacherList = new ArrayList<>();
     ArrayList<Course> courses = new ArrayList<>();
+    School school;
 
 
     File file = new File("src/list.ser");
@@ -104,6 +105,9 @@ public class Model {
 
         teacherList.add(new Teacher("Admin", "Login", "Admin.login@skola.se",
                 "00001122-3456", "Password", true));
+
+        school = new School("TEM University", 2016, "University", "Sweden",
+                "address 1", "070-123 456 789", "UON18903434612");
 
         try {
             loadList();
