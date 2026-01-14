@@ -11,15 +11,15 @@ public abstract class Person implements Serializable {
 
     LocalDateTime dateCreated;
 
-    public Person(String firstName, String lastName, String emailAddress, String socialSecurityNumber){
-        this.firstName=firstName;
-        this.lastName=lastName;
-        this.emailAddress=emailAddress;
-        this.socialSecurityNumber=socialSecurityNumber;
-        this.dateCreated=LocalDateTime.now();
+    public Person(String firstName, String lastName, String emailAddress, String socialSecurityNumber) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.emailAddress = emailAddress;
+        this.socialSecurityNumber = socialSecurityNumber;
+        this.dateCreated = LocalDateTime.now();
     }
 
-    public Person(){
+    public Person() {
     }
 
     public LocalDateTime getDateCreated() {

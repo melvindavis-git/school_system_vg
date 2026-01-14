@@ -27,10 +27,7 @@ public class Course implements Serializable {
     }
 
 
-
-
-
-    public void removeStudent(Student student){
+    public void removeStudent(Student student) {
         classList.remove(student);
     }
 
@@ -47,7 +44,7 @@ public class Course implements Serializable {
         return teacher.getFirstName();
     }
 
-    public Teacher getTeacher(){
+    public Teacher getTeacher() {
         return teacher;
     }
 

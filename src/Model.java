@@ -103,8 +103,8 @@ public class Model {
         courses.add(new Course("Biology", 20, null));
         courses.add(new Course("Design-patterns", 20, null));
 
-        teacherList.add(new Teacher("Admin", "Login", "Admin.login@skola.se",
-                "00001122-3456", "Password", true));
+        teacherList.add(new Teacher("admin", "tem", "admin.tem@skola.se",
+                "00001122-3456", "password", true));
 
         school = new School("TEM University", 2016, "University", "Sweden",
                 "address 1", "070-123 456 789", "UON18903434612");

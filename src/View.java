@@ -36,8 +36,8 @@ public class View {
     public void printAllTeachers(Model model) {
         if (model.getTeacherList() != null) {
             for (Teacher t : model.getTeacherList()) {
-                    System.out.println(index + ". " + t.getFirstName() + " " + t.getLastName());
-                    index++;
+                System.out.println(index + ". " + t.getFirstName() + " " + t.getLastName());
+                index++;
             }
             System.out.println(index + ". Exit");
             index = 1;
@@ -65,7 +65,7 @@ public class View {
         }
     }
 
-    public void printCourseStudents(Course course){
+    public void printCourseStudents(Course course) {
         if (!course.getClassList().isEmpty()) {
             for (Student s : course.getClassList()) {
                 System.out.println(index + ". " + s.getFirstName() + " " + s.getLastName() + " " + s.getGrade(course));
@@ -86,10 +86,10 @@ public class View {
     }
 
     public void printTeacherInfo(Teacher teacher) {
-            System.out.println("Selected Teacher: " + teacher.getFirstName() + " " + teacher.getLastName());
-            System.out.println("Teacher's email: " + teacher.getEmailAddress());
-            System.out.println("Teacher's SSN: " + teacher.getSocialSecurityNumber());
-            System.out.println("Date when added to system: " + teacher.getDateCreated().format(dtf));
+        System.out.println("Selected Teacher: " + teacher.getFirstName() + " " + teacher.getLastName());
+        System.out.println("Teacher's email: " + teacher.getEmailAddress());
+        System.out.println("Teacher's SSN: " + teacher.getSocialSecurityNumber());
+        System.out.println("Date when added to system: " + teacher.getDateCreated().format(dtf));
     }
 
     public void printMessage(String messageText) {
@@ -97,7 +97,7 @@ public class View {
 
     }
 
-    public void printOnOneLine(String messageText){
+    public void printOnOneLine(String messageText) {
         System.out.print(messageText);
     }
 
@@ -122,7 +122,7 @@ public class View {
             System.out.println("              ▄▌         ");
             Thread.sleep(sleepAmount);
             System.out.println();
-            firstIntro=false;
+            firstIntro = false;
         } else {
             System.out.println("\n\n\n");
             System.out.println("▄▖  ▌     ▜              ");
