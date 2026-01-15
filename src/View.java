@@ -3,15 +3,17 @@ import java.time.format.DateTimeFormatter;
 public class View {
 
 
-    public View(Model model) {
+    private Model model;
 
+    public View(Model model) {
+        this.model = model;
     }
 
     private int index = 1;
     boolean firstIntro = true;
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-    public void printAllStudents(Model model) {
+    public void printAllStudents() {
         if (model.getStudentList() != null) {
             for (Student s : model.getStudentList()) {
                 System.out.println(index + ". " + s.getFirstName() + " " + s.getLastName());
@@ -24,7 +26,7 @@ public class View {
         }
     }
 
-    public void printAllCourses(Model model) {
+    public void printAllCourses() {
         for (Course c : model.getCourses()) {
             System.out.println(index + ". " + c.getCourseName());
             index++;
@@ -33,7 +35,7 @@ public class View {
         index = 1;
     }
 
-    public void printAllTeachers(Model model) {
+    public void printAllTeachers() {
         if (model.getTeacherList() != null) {
             for (Teacher t : model.getTeacherList()) {
                 System.out.println(index + ". " + t.getFirstName() + " " + t.getLastName());
@@ -139,7 +141,7 @@ public class View {
 
     }
 
-    public void studentFindCourses(Student student, Model model) {
+    public void studentFindCourses(Student student) {
         int index = 1;
         boolean studentHasCourse = false;
         for (Course c : model.courses) {
@@ -162,7 +164,7 @@ public class View {
 
     }
 
-    public void printSchoolInfo(Model model) {
+    public void printSchoolInfo() {
         System.out.println("SCHOOL NAME: " + model.school.getName());
         System.out.println("YEAR FOUNDED: " + model.school.getYearFounded());
         System.out.println("SCHOOL TYPE: " + model.school.getSchoolType());
